@@ -1,8 +1,9 @@
 {
-    "name": "atran/translate",
+    "name": "bohdanboriak/azuretran",
+    "version": "8.1",
     "description": "Making Microsoft translator API version 3 consumption easier in Laravel 5+.",
     "keywords": ["azure","translate","translator","api","version3","3","easier","laravel","Cognitive","Services","transliterate","translation","language","languages"],
-    "homepage": "https://github.com/InputOutputZ/ATran",
+    "homepage": "https://github.com/BohdanBoriak/ATran",
     "type": "library",
     "license": "Unlicense",
     "require": {
@@ -14,6 +15,10 @@
             "name": "Zakaria",
             "email": "hi@zakaria.website",
             "homepage": "https://zakaria.website"
+        },
+        {
+            "name": "BohdanBoriak",
+            "email": "bohdan.boriak@gmail.com"
         }
     ],
     "autoload": {

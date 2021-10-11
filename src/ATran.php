@@ -46,7 +46,7 @@ class ATran extends ATranHelpers
             'charset' => 'utf-8',
             'X-ClientTraceId' => $clientTraceId]);
         if ($contentLength) {
-            $headers->push(['Content-Length' => $contentLength]);
+            $headers->put('Content-Length', $contentLength);
         }
 
         return new Client(['headers' => $headers->toArray(), 'base_uri' => $this->host]);
