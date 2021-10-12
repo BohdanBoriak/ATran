@@ -188,7 +188,7 @@ class ATran extends ATranHelpers
             $gson = Gson::builder()->build();
             $translationObject = $gson->fromJson($encodedBodyJson, Translations::class);
 
-            if (array_key_exists('translations', $translationObject) && sizeof($translationObject->translations) > 0 && array_key_exists('normalizedTarget', $translationObject->translations[0])) {
+            if (array_key_exists('translations', $translationObject) && sizeof($translationObject->translations) > 0) {
                 return $translationObject->translations;
             } else {
                 // failed translation

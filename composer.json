@@ -8,7 +8,8 @@
     "license": "Unlicense",
     "require": {
         "guzzlehttp/guzzle": "^7.0.1",
-        "tebru/gson-php": "^0.7.4"
+        "tebru/gson-php": "^0.7.4",
+        "ext-json": "*"
     },
     "authors": [
         {

@@ -17,7 +17,6 @@ class ATranServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([__DIR__.'/config/atran.php' => config_path('atran.php')]);
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
     }
 
     /**
@@ -42,8 +41,6 @@ class ATranServiceProvider extends ServiceProvider
                 $app['config']['atran.languagepath']
             );
         });
-
-        $this->app->make('\ATran\Translate\PlayWithAPIController');
     }
 
     public function provides()
