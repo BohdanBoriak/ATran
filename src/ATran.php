@@ -21,13 +21,15 @@ class ATran extends ATranHelpers
     protected $transliterpath;
     protected $languagepath;
     protected $transpath;
+    protected $lookuppath;
 
-    public function __construct($key, $host, $detectpath, $transpath, $transliterpath, $languagepath)
+    public function __construct($key, $host, $detectpath, $transpath, $lookuppath, $transliterpath, $languagepath)
     {
         $this->key = $key;
         $this->detectpath = $detectpath;
         $this->transliterpath = $transliterpath;
         $this->transpath = $transpath;
+        $this->lookuppath = $lookuppath;
         $this->languagepath = $languagepath;
         $this->host = $host;
         try {
@@ -157,6 +159,37 @@ class ATran extends ATranHelpers
 
             if (array_key_exists('translations', $translationObject) && sizeof($translationObject->translations) > 0 && array_key_exists('text', $translationObject->translations[0])) {
                 return $translationObject->translations[0]['text'];
+            } else {
+                // failed translation
+                return false;
+            }
+        } catch (Throwable $e) {
+            return ['fail' => true, 'exception' => $e];
+        }
+    }
+
+    public function lookUp($text, $from, $to)
+    {
+
+        $body = [
+            'json' => array(['text' => iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text)])
+        ];
+
+        try {
+            $this->http = $this->setupClient($this->getTextJsonBodyLength($text), $this->com_create_guid());
+
+            $lookupquery = "&from=" . $from . "&to=" . $to;
+
+            $response = $this->http->post($this->lookuppath . $lookupquery, $body);
+
+            $responseBody = $response->getBody();
+            $decodedBodyJson = json_decode($responseBody, JSON_UNESCAPED_UNICODE);
+            $encodedBodyJson = json_encode($decodedBodyJson[0], JSON_UNESCAPED_UNICODE);
+            $gson = Gson::builder()->build();
+            $translationObject = $gson->fromJson($encodedBodyJson, Translations::class);
+
+            if (array_key_exists('translations', $translationObject) && sizeof($translationObject->translations) > 0 && array_key_exists('normalizedTarget', $translationObject->translations[0])) {
+                return $translationObject->translations;
             } else {
                 // failed translation
                 return false;

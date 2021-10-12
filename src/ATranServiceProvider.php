@@ -37,6 +37,7 @@ class ATranServiceProvider extends ServiceProvider
                 $app['config']['atran.host'],
                 $app['config']['atran.detectpath'],
                 $app['config']['atran.transpath'],
+                $app['config']['atran.lookuppath'],
                 $app['config']['atran.transliterpath'],
                 $app['config']['atran.languagepath']
             );
